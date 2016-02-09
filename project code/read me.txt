@@ -1,0 +1,1 @@
+This folder contains the Haxe code for the game assigned by the hanze on 1/9/2016.
