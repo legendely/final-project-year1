@@ -9,7 +9,7 @@ import openfl.events.MouseEvent;
  * ...
  * @author Marcel Stoepker
  */
-class Tutorial extends Sprite{
+class ChatRoom extends Sprite{
 
 	public var backButton : Sprite = new Sprite();
 	
@@ -20,7 +20,7 @@ class Tutorial extends Sprite{
 		backButton.addChild(backBitmap);
 	}
 	
-	public function removeTutorialData(){
+	public function removeChatRoomData(){
 		removeChild(backButton);
 	}
 	

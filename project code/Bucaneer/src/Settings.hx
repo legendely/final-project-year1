@@ -9,7 +9,7 @@ import openfl.events.MouseEvent;
  * ...
  * @author Marcel Stoepker
  */
-class Tutorial extends Sprite{
+class Settings extends Sprite{
 
 	public var backButton : Sprite = new Sprite();
 	
@@ -20,14 +20,11 @@ class Tutorial extends Sprite{
 		backButton.addChild(backBitmap);
 	}
 	
-	public function removeTutorialData(){
+	public function removeSettingsData(){
 		removeChild(backButton);
 	}
 	
 	public function addBackButton(){
 		addChild(backButton);
 	}
-	
-	
-	
 }

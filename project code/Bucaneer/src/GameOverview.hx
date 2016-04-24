@@ -9,9 +9,10 @@ import openfl.events.MouseEvent;
  * ...
  * @author Marcel Stoepker
  */
-class Tutorial extends Sprite{
-
+class GameOverview extends Sprite {
+	
 	public var backButton : Sprite = new Sprite();
+
 	
 	public function new(){
 		super();
@@ -20,14 +21,11 @@ class Tutorial extends Sprite{
 		backButton.addChild(backBitmap);
 	}
 	
-	public function removeTutorialData(){
+	public function removeGameOverviewData(){
 		removeChild(backButton);
 	}
 	
 	public function addBackButton(){
 		addChild(backButton);
 	}
-	
-	
-	
 }
