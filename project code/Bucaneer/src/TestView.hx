@@ -11,7 +11,7 @@ import openfl.text.TextFormat;
  * ...
  * @author Marcel Stoepker
  */
-class ChatRoom extends View{
+class TestView extends View{
 
 	public var vn : String;
 	

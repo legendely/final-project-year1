@@ -18,14 +18,32 @@ class UserInterface extends Sprite{
 	private var chatRoomButton : Sprite = new Sprite();
 	
 	//views
-	private var tutorialView : Tutorial = new Tutorial();
-	private var chatRoomView : ChatRoom = new ChatRoom();
-	private var gameOverviewView : GameOverview = new GameOverview();
-	private var settingsView : Settings = new Settings();
+	private var tutorialView : Tutorial = new Tutorial("turorial");
+	private var settingsView : Settings = new Settings("settings");
+	private var gameOverviewView : GameOverview = new GameOverview("gameoverview");
+	private var chatRoomView : ChatRoom = new ChatRoom("chatroom");
+	
+	//arrays
+	private var buttonArray : Array<Sprite>;
+	private var viewArray : Array<View>;
+	private var bitmapDataInput : Array<String>;
+	
 	
 	public function new(){
 		super();
+		initializeArrays();
 		initializeButtons();
+	}
+	
+	
+	public function initializeArrays(){
+		buttonArray = [tutorialButton, settingsButton, gameOverviewButton, chatRoomButton];
+		viewArray = [tutorialView, settingsView, gameOverviewView, chatRoomView];
+		bitmapDataInput = 
+		["img/buttonpictures/tutorialButton.jpg",
+		"img/buttonpictures/settingsButton.jpg",
+		"img/buttonpictures/gameOverviewButton.jpg",
+		"img/buttonpictures/chatRoomButton.jpg"];
 	}
 	
 	//This function will put all the bitmapdata into bitmaps and adds them to the button sprites.
@@ -33,22 +51,12 @@ class UserInterface extends Sprite{
 	//Finaly setting the defaultvalues with function ==> setDefaultSetingsButtons().
 	private function initializeButtons() : Void{
 		//Bitmap and BitmapData part
-		var tutorialBitmapData : BitmapData = Assets.getBitmapData("img/buttonpictures/tutorialButton.jpg");
-		var tutorialBitmap : Bitmap = new Bitmap (tutorialBitmapData);
-		tutorialButton.addChild(tutorialBitmap);
-		
-		var settingsBitmapData : BitmapData = Assets.getBitmapData("img/buttonpictures/settingsButton.jpg");
-		var settingsBitmap : Bitmap = new Bitmap (settingsBitmapData);
-		settingsButton.addChild(settingsBitmap);
-		
-		var gameOverviewBitmapData : BitmapData = Assets.getBitmapData("img/buttonpictures/gameOverviewButton.jpg");
-		var gameOverviewBitmap : Bitmap = new Bitmap (gameOverviewBitmapData);
-		gameOverviewButton.addChild(gameOverviewBitmap);
-		
-		var chatRoomBitmapData : BitmapData = Assets.getBitmapData("img/buttonpictures/chatRoomButton.jpg");
-		var chatRoomBitmap : Bitmap = new Bitmap (chatRoomBitmapData);
-		chatRoomButton.addChild(chatRoomBitmap);
-		
+		for (i in 0...buttonArray.length){
+			var tempBitmapData : BitmapData = Assets.getBitmapData(bitmapDataInput[i]);
+			var tempBitmap : Bitmap = new Bitmap(tempBitmapData);
+			buttonArray[i].addChild(tempBitmap);
+		}
+
 		//addChildren part
 		addButtons();
 		
@@ -75,27 +83,24 @@ class UserInterface extends Sprite{
 	}
 
 	//creates the actionlisteners for the buttons
-	private function createActionListners() : Void{
-		tutorialButton.addEventListener( "click", buttonClicked);
-		settingsButton.addEventListener( "click", buttonClicked);
-		gameOverviewButton.addEventListener( "click", buttonClicked);
-		chatRoomButton.addEventListener( "click", buttonClicked);
+	private function createActionListners() : Void {
+		for (i in 0...buttonArray.length){
+			buttonArray[i].addEventListener("click", buttonClicked);
+		}
 	}
 	
 	//This function will add all the buttons to the UI.
-	public function addButtons() : Void{
-		addChild(tutorialButton);
-		addChild(settingsButton);
-		addChild(gameOverviewButton);
-		addChild(chatRoomButton);
+	public function addButtons() : Void {
+		for (i in 0...buttonArray.length){
+			addChild(buttonArray[i]);
+		}	
 	}
 	
 	//This function will remove all the buttons from the UI.
 	private function removeButtons() : Void{
-		removeChild(tutorialButton);
-		removeChild(settingsButton);
-		removeChild(gameOverviewButton);
-		removeChild(chatRoomButton);
+		for (i in 0...buttonArray.length){
+			removeChild(buttonArray[i]);
+		}	
 	}
 	
 	//This function will run when one of the buttons is clicked.
@@ -104,22 +109,13 @@ class UserInterface extends Sprite{
 	// After the check it will change the view to the clicked option and add the back button.
 	public function buttonClicked(me:MouseEvent) : Void {
 		removeButtons();
-		if(me.target == tutorialButton){
-			addChild(tutorialView);
-			tutorialView.backButton.addEventListener("click", goBack);
-			tutorialView.addBackButton();
-		}else if(me.target == settingsButton){
-			addChild(settingsView);
-			settingsView.backButton.addEventListener("click", goBack);
-			settingsView.addBackButton();
-		}else if(me.target == gameOverviewButton){
-			addChild(gameOverviewView);
-			gameOverviewView.backButton.addEventListener("click", goBack);
-			gameOverviewView.addBackButton();
-		}else if(me.target == chatRoomButton){
-			addChild(chatRoomView);
-			chatRoomView.backButton.addEventListener("click", goBack);
-			chatRoomView.addBackButton();
+		
+		for (i in 0...buttonArray.length){
+			if(me.target == buttonArray[i]){
+			addChild(viewArray[i]);
+			viewArray[i].backButton.addEventListener("click", goBack);
+			viewArray[i].addView();
+			}	
 		}	
 	}
 	
@@ -128,19 +124,12 @@ class UserInterface extends Sprite{
 	//It will delete the view from the UI.
 	//Then it will add the UI buttons again.
 	public function goBack(me:MouseEvent) : Void{
-		if (me.target == tutorialView.backButton){
-			tutorialView.removeTutorialData();
+		
+		for (i in 0...buttonArray.length){
+			if (me.target == viewArray[i].backButton){
+			viewArray[i].removeView();
 			addButtons();
-		}else if (me.target == settingsView.backButton){
-			settingsView.removeSettingsData();
-			addButtons();
-		}else if (me.target == gameOverviewView.backButton){
-			gameOverviewView.removeGameOverviewData();
-			addButtons();
-		}else if (me.target == chatRoomView.backButton){
-			chatRoomView.removeChatRoomData();
-			addButtons();
+			}	
 		}
 	}
-	
 }

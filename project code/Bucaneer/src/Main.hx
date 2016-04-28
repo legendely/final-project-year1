@@ -1,6 +1,7 @@
 package;
 
 import openfl.display.Sprite;
+import openfl.events.MouseEvent;
 import openfl.Lib;
 import src.Intro;
 import src.LoginScreen;
@@ -17,16 +18,26 @@ class Main extends Sprite{
 	public var password : String;
 	public var userInterface : UserInterface = new UserInterface();
 	public var intro : Intro = new Intro();
-	public var user : User = new User();
-	//public var loginscreen : LoginScreen = new LoginScreen();
+	public var user : User;
+	public var loginScreen : LoginScreen = new LoginScreen();
 	
 	public function new(){
 		super();
-		addChild(userInterface);
-		//addChild(loginscreen);
+		addChild(loginScreen);
+		loginScreen.addEventListener("click", loginButtonClicked);
+		user = new User(loginScreen.username);
 	}
-	
-	public function loginScreenInit(){
+
+	// This function will run when the login button is clicked.
+	// It will run the passwordcheck function.
+	// if the password is correct it will remove the loginscreen and add the userinterface.
+	public function loginButtonClicked(me:MouseEvent){
+		if (loginScreen.passwordCheck() == true){
+			removeChild(loginScreen);
+			addChild(userInterface);
+		}else{
+			//delete userinput
+		}
 		
 	}
 }

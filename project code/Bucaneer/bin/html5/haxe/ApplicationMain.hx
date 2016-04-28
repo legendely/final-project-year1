@@ -30,6 +30,30 @@ class ApplicationMain {
 		var types = [];
 		
 		
+		urls.push ("img/buttonpictures/backButton.jpg");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("img/buttonpictures/chatRoomButton.jpg");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("img/buttonpictures/gameOverviewButton.jpg");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("img/buttonpictures/loginButton.jpg");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("img/buttonpictures/settingsButton.jpg");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("img/buttonpictures/tutorialButton.jpg");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
 		
 		if (config.assetsPrefix != null) {
 			
@@ -91,7 +115,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "1",
+			build: "259",
 			company: "Marcel Stoepker",
 			file: "Bucaneer",
 			fps: 60,

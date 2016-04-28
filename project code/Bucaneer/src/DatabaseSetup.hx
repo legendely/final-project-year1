@@ -28,4 +28,9 @@ class DatabaseSetup{
 		
 	}
 	
+	public function QUERYFUNCTION(): String{
+		var query : String = "SELECT * FROM 'player'";
+		return query;
+	}
+	
 }

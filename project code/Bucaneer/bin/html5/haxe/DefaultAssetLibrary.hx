@@ -52,15 +52,57 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#if (openfl && !flash)
 		
 		
+		
+		
+		
+		
+		
+		
 		#end
 		
 		#if flash
 		
+		className.set ("img/buttonpictures/backButton.jpg", __ASSET__img_buttonpictures_backbutton_jpg);
+		type.set ("img/buttonpictures/backButton.jpg", AssetType.IMAGE);
+		className.set ("img/buttonpictures/chatRoomButton.jpg", __ASSET__img_buttonpictures_chatroombutton_jpg);
+		type.set ("img/buttonpictures/chatRoomButton.jpg", AssetType.IMAGE);
+		className.set ("img/buttonpictures/gameOverviewButton.jpg", __ASSET__img_buttonpictures_gameoverviewbutton_jpg);
+		type.set ("img/buttonpictures/gameOverviewButton.jpg", AssetType.IMAGE);
+		className.set ("img/buttonpictures/loginButton.jpg", __ASSET__img_buttonpictures_loginbutton_jpg);
+		type.set ("img/buttonpictures/loginButton.jpg", AssetType.IMAGE);
+		className.set ("img/buttonpictures/settingsButton.jpg", __ASSET__img_buttonpictures_settingsbutton_jpg);
+		type.set ("img/buttonpictures/settingsButton.jpg", AssetType.IMAGE);
+		className.set ("img/buttonpictures/tutorialButton.jpg", __ASSET__img_buttonpictures_tutorialbutton_jpg);
+		type.set ("img/buttonpictures/tutorialButton.jpg", AssetType.IMAGE);
 		
 		
 		#elseif html5
 		
 		var id;
+		id = "img/buttonpictures/backButton.jpg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/buttonpictures/chatRoomButton.jpg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/buttonpictures/gameOverviewButton.jpg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/buttonpictures/loginButton.jpg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/buttonpictures/settingsButton.jpg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "img/buttonpictures/tutorialButton.jpg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
 		
 		
 		var assetsPrefix = null;
@@ -78,6 +120,24 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#if (windows || mac || linux)
 		
 		var useManifest = false;
+		
+		className.set ("img/buttonpictures/backButton.jpg", __ASSET__img_buttonpictures_backbutton_jpg);
+		type.set ("img/buttonpictures/backButton.jpg", AssetType.IMAGE);
+		
+		className.set ("img/buttonpictures/chatRoomButton.jpg", __ASSET__img_buttonpictures_chatroombutton_jpg);
+		type.set ("img/buttonpictures/chatRoomButton.jpg", AssetType.IMAGE);
+		
+		className.set ("img/buttonpictures/gameOverviewButton.jpg", __ASSET__img_buttonpictures_gameoverviewbutton_jpg);
+		type.set ("img/buttonpictures/gameOverviewButton.jpg", AssetType.IMAGE);
+		
+		className.set ("img/buttonpictures/loginButton.jpg", __ASSET__img_buttonpictures_loginbutton_jpg);
+		type.set ("img/buttonpictures/loginButton.jpg", AssetType.IMAGE);
+		
+		className.set ("img/buttonpictures/settingsButton.jpg", __ASSET__img_buttonpictures_settingsbutton_jpg);
+		type.set ("img/buttonpictures/settingsButton.jpg", AssetType.IMAGE);
+		
+		className.set ("img/buttonpictures/tutorialButton.jpg", __ASSET__img_buttonpictures_tutorialbutton_jpg);
+		type.set ("img/buttonpictures/tutorialButton.jpg", AssetType.IMAGE);
 		
 		
 		if (useManifest) {
@@ -722,9 +782,21 @@ class DefaultAssetLibrary extends AssetLibrary {
 #if !display
 #if flash
 
+@:keep @:bind #if display private #end class __ASSET__img_buttonpictures_backbutton_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_buttonpictures_chatroombutton_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_buttonpictures_gameoverviewbutton_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_buttonpictures_loginbutton_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_buttonpictures_settingsbutton_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__img_buttonpictures_tutorialbutton_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 
 
 #elseif html5
+
+
+
+
+
+
 
 
 
@@ -735,6 +807,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 #if (windows || mac || linux || cpp)
 
 
+@:image("assets/img/buttonpictures/backButton.jpg") #if display private #end class __ASSET__img_buttonpictures_backbutton_jpg extends lime.graphics.Image {}
+@:image("assets/img/buttonpictures/chatRoomButton.jpg") #if display private #end class __ASSET__img_buttonpictures_chatroombutton_jpg extends lime.graphics.Image {}
+@:image("assets/img/buttonpictures/gameOverviewButton.jpg") #if display private #end class __ASSET__img_buttonpictures_gameoverviewbutton_jpg extends lime.graphics.Image {}
+@:image("assets/img/buttonpictures/loginButton.jpg") #if display private #end class __ASSET__img_buttonpictures_loginbutton_jpg extends lime.graphics.Image {}
+@:image("assets/img/buttonpictures/settingsButton.jpg") #if display private #end class __ASSET__img_buttonpictures_settingsbutton_jpg extends lime.graphics.Image {}
+@:image("assets/img/buttonpictures/tutorialButton.jpg") #if display private #end class __ASSET__img_buttonpictures_tutorialbutton_jpg extends lime.graphics.Image {}
 
 
 
