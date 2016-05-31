@@ -58,6 +58,19 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		#end
 		
 		#if flash
@@ -70,10 +83,36 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("img/buttonpictures/gameOverviewButton.jpg", AssetType.IMAGE);
 		path.set ("img/buttonpictures/loginButton.jpg", "img/buttonpictures/loginButton.jpg");
 		type.set ("img/buttonpictures/loginButton.jpg", AssetType.IMAGE);
+		path.set ("img/buttonpictures/moveButtonLeft.jpg", "img/buttonpictures/moveButtonLeft.jpg");
+		type.set ("img/buttonpictures/moveButtonLeft.jpg", AssetType.IMAGE);
+		path.set ("img/buttonpictures/moveButtonRight.jpg", "img/buttonpictures/moveButtonRight.jpg");
+		type.set ("img/buttonpictures/moveButtonRight.jpg", AssetType.IMAGE);
+		path.set ("img/buttonpictures/player1Button.jpg", "img/buttonpictures/player1Button.jpg");
+		type.set ("img/buttonpictures/player1Button.jpg", AssetType.IMAGE);
+		path.set ("img/buttonpictures/player2Button.jpg", "img/buttonpictures/player2Button.jpg");
+		type.set ("img/buttonpictures/player2Button.jpg", AssetType.IMAGE);
+		path.set ("img/buttonpictures/player3Button.jpg", "img/buttonpictures/player3Button.jpg");
+		type.set ("img/buttonpictures/player3Button.jpg", AssetType.IMAGE);
+		path.set ("img/buttonpictures/player4Button.jpg", "img/buttonpictures/player4Button.jpg");
+		type.set ("img/buttonpictures/player4Button.jpg", AssetType.IMAGE);
+		path.set ("img/buttonpictures/player5Button.jpg", "img/buttonpictures/player5Button.jpg");
+		type.set ("img/buttonpictures/player5Button.jpg", AssetType.IMAGE);
+		path.set ("img/buttonpictures/player6Button.jpg", "img/buttonpictures/player6Button.jpg");
+		type.set ("img/buttonpictures/player6Button.jpg", AssetType.IMAGE);
+		path.set ("img/buttonpictures/set1.jpg", "img/buttonpictures/set1.jpg");
+		type.set ("img/buttonpictures/set1.jpg", AssetType.IMAGE);
+		path.set ("img/buttonpictures/set2.jpg", "img/buttonpictures/set2.jpg");
+		type.set ("img/buttonpictures/set2.jpg", AssetType.IMAGE);
+		path.set ("img/buttonpictures/set3.jpg", "img/buttonpictures/set3.jpg");
+		type.set ("img/buttonpictures/set3.jpg", AssetType.IMAGE);
+		path.set ("img/buttonpictures/set4.jpg", "img/buttonpictures/set4.jpg");
+		type.set ("img/buttonpictures/set4.jpg", AssetType.IMAGE);
 		path.set ("img/buttonpictures/settingsButton.jpg", "img/buttonpictures/settingsButton.jpg");
 		type.set ("img/buttonpictures/settingsButton.jpg", AssetType.IMAGE);
 		path.set ("img/buttonpictures/tutorialButton.jpg", "img/buttonpictures/tutorialButton.jpg");
 		type.set ("img/buttonpictures/tutorialButton.jpg", AssetType.IMAGE);
+		path.set ("img/islandMap.jpg", "img/islandMap.jpg");
+		type.set ("img/islandMap.jpg", AssetType.IMAGE);
 		
 		
 		#elseif html5
@@ -91,10 +130,49 @@ class DefaultAssetLibrary extends AssetLibrary {
 		id = "img/buttonpictures/loginButton.jpg";
 		path.set (id, id);
 		type.set (id, AssetType.IMAGE);
+		id = "img/buttonpictures/moveButtonLeft.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/buttonpictures/moveButtonRight.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/buttonpictures/player1Button.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/buttonpictures/player2Button.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/buttonpictures/player3Button.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/buttonpictures/player4Button.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/buttonpictures/player5Button.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/buttonpictures/player6Button.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/buttonpictures/set1.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/buttonpictures/set2.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/buttonpictures/set3.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/buttonpictures/set4.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
 		id = "img/buttonpictures/settingsButton.jpg";
 		path.set (id, id);
 		type.set (id, AssetType.IMAGE);
 		id = "img/buttonpictures/tutorialButton.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "img/islandMap.jpg";
 		path.set (id, id);
 		type.set (id, AssetType.IMAGE);
 		
@@ -114,6 +192,19 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#if (windows || mac || linux)
 		
 		var useManifest = false;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
 		useManifest = true;
 		useManifest = true;
 		useManifest = true;
@@ -772,7 +863,33 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 #elseif html5
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

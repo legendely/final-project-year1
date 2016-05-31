@@ -10,12 +10,24 @@ import openfl.events.MouseEvent;
  * @author Marcel Stoepker
  */
 class UserInterface extends Sprite{
-
-	//buttons
+	// timer
+	private var timer : haxe.Timer;
+	
+	//view buttons
 	private var tutorialButton : Sprite = new Sprite();
 	private var settingsButton : Sprite = new Sprite();
 	private var gameOverviewButton : Sprite = new Sprite();
 	private var chatRoomButton : Sprite = new Sprite();
+	
+	//move buttons
+	private var buttonLeft : Sprite = new Sprite();
+	private var buttonRight : Sprite = new Sprite();
+	
+	//move button Data
+	private var buttonLeftBitmapData : BitmapData;
+	private var buttonLeftBitmap : Bitmap;
+	private var buttonRightBitmapData : BitmapData;
+	private var buttonRightBitmap : Bitmap;
 	
 	//views
 	private var tutorialView : Tutorial = new Tutorial("turorial");
@@ -28,15 +40,19 @@ class UserInterface extends Sprite{
 	private var viewArray : Array<View>;
 	private var bitmapDataInput : Array<String>;
 	
+	//map data
+	private var bitmapIsland : Bitmap;
+	private var bitmapDataIsland: BitmapData;
 	
 	public function new(){
 		super();
+		initializeIsland();
 		initializeArrays();
 		initializeButtons();
 	}
 	
-	
-	public function initializeArrays(){
+	// This function will insert the Data into the Arrays 
+	public function initializeArrays() : Void{
 		buttonArray = [tutorialButton, settingsButton, gameOverviewButton, chatRoomButton];
 		viewArray = [tutorialView, settingsView, gameOverviewView, chatRoomView];
 		bitmapDataInput = 
@@ -132,4 +148,57 @@ class UserInterface extends Sprite{
 			}	
 		}
 	}
+	
+	//will set the data for the island as background
+	public function initializeIsland(){
+		//bitmap stuff
+		bitmapDataIsland = Assets.getBitmapData("img/islandMap.jpg");
+		bitmapIsland = new Bitmap(bitmapDataIsland);
+		buttonLeftBitmapData = Assets.getBitmapData("img/buttonpictures/moveButtonLeft.jpg");
+		buttonLeftBitmap = new Bitmap(buttonLeftBitmapData);
+		buttonRightBitmapData = Assets.getBitmapData("img/buttonpictures/moveButtonRight.jpg");
+		buttonRightBitmap = new Bitmap(buttonRightBitmapData);
+		
+		buttonLeft.addChild(buttonLeftBitmap);
+		buttonRight.addChild(buttonRightBitmap);
+		
+		buttonLeft.x = 10;
+		buttonLeft.y = 500;
+		buttonRight.x = 500;
+		buttonRight.y = 500;
+		
+		addChild(bitmapIsland);
+		addChild(buttonLeft);
+		addChild(buttonRight);
+		buttonLeft.addEventListener("click", moveIsland);
+		buttonRight.addEventListener("click", moveIsland);
+	}
+	
+	// will move the picture of the island
+	public function moveIsland(me:MouseEvent) {
+		timer = new haxe.Timer(1);
+		var maxMovement : Int = 50;
+		var temp : Int = 0;
+		
+		if (me.target == buttonLeft){
+			timer.run = function():Void {
+				temp++;
+				trace(temp);
+				bitmapIsland.x = bitmapIsland.x + 10;
+				if (temp == maxMovement){
+					timer.stop();
+				}
+			}
+		}else if (me.target == buttonRight){
+			timer.run = function():Void {
+				temp++;
+				trace(temp);
+				bitmapIsland.x = bitmapIsland.x - 10;
+				if (temp == maxMovement){
+					timer.stop();
+				}
+			}	
+		}
+	}
+
 }
