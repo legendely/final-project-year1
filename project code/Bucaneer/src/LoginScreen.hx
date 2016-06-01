@@ -15,62 +15,102 @@ import openfl.events.MouseEvent;
  */
 class LoginScreen extends Sprite{
 
-	public var playerId : Int;
-	public var setId : Int;
+	private var playerId : Int;
+	private var setId : Int;
+	private var chosenAmountOfPlayers : Int;
+	private var amountOfButtons : Int;
 	
+	//bitmap stuff
 	private var loginButtonBitmapData : BitmapData ;
-	public var loginButtonBitmap : Bitmap;
+	private var loginButtonBitmap : Bitmap;
 	
-	public var playerButtonArray : Array<LoginButtons> = new Array();
+	// Arrays for button cords and login buttons.
 	private var buttonXCordArray : Array<Int> = new Array();
-	public var setChoiseButtonArray : Array<LoginButtons> = new Array();
-
-
+	private var loginButtonArray : Array<LoginButtons> = new Array();
+	
+	private var state : Int = 0;
+	
 	public function new(){
 		super();
-		makePlayerChoiseButtons();
+		initializeLoginButtonChoices();
 	}
 	
-	public function makePlayerChoiseButtons(){
-		buttonXCordArray = [0,50,100,150,200,250];
-		for (i in 0...6) {	
-			var tempButton : LoginButtons = new LoginButtons("img/buttonpictures/player"+(1+i)+"Button.jpg", i+1);
-			playerButtonArray[i] = tempButton;
-			addChild(playerButtonArray[i]);
-			playerButtonArray[i].x = buttonXCordArray[i];
-			playerButtonArray[i].y = 300;
-			playerButtonArray[i].addEventListener("click", playerChoiseClicked);
+	public function initializeLoginButtonChoices() {
+		// state 0 chose amount of players.
+		if (state == 0) {
+			amountOfButtons = 2;
+			
+			// will set the bitmap for the buttons and the x position
+			for (i in 0...amountOfButtons){
+				buttonXCordArray = [100, 200];
+				loginButtonArray[i] = new LoginButtons("img/buttonpictures/amountOfPlayers"+((i*2)+4)+".jpg", ((i*2)+4));
+			}
+		}
+		// state 1 chose a player color.
+		else if (state == 1) {
+			// depending on the ammount of players it will pick an amount of buttons
+			checkAmountOfPlayers();
+			
+			// will set the bitmap for the buttons and the x position
+			for (i in 0...amountOfButtons) {
+				buttonXCordArray = [0,50,100,150,200,250];	
+				loginButtonArray[i] = new LoginButtons("img/buttonpictures/player" + (1 + i) + "Button.jpg", i + 1);
+			}
+		}
+		// state 2 chose set.
+		else if (state == 2) {
+			amountOfButtons = 4;
+			// will set the bitmap for the buttons and the x position
+			for (i in 0...amountOfButtons) {
+				buttonXCordArray = [100,200,300,400];	
+				loginButtonArray[i] =  new LoginButtons("img/buttonpictures/set" + (1 + i) + ".jpg", i + 1);
+			}
+		}
+		//increment state
+		state++;
+		// Adding the buttons to loginscreen.
+		// Setting the coordinates of the buttons.
+		// Adding the mouseventlistner.
+		for (i in 0...amountOfButtons){
+			addChild(loginButtonArray[i]);
+			loginButtonArray[i].x = buttonXCordArray[i];
+			loginButtonArray[i].y = 300;
+			loginButtonArray[i].addEventListener("click", nextState);
 		}
 	}
-
-	public function initializeSetChoise(){
-		for (i in 0...4) {	
-			buttonXCordArray = [100,200,300,400];
-			var tempButton : LoginButtons = new LoginButtons("img/buttonpictures/set"+(1+i)+".jpg", i+1);
-			setChoiseButtonArray[i] = tempButton;
-			addChild(setChoiseButtonArray[i]);
-			setChoiseButtonArray[i].x = buttonXCordArray[i];
-			setChoiseButtonArray[i].y = 300;
-			setChoiseButtonArray[i].addEventListener("click", setChoiseButtonClicked);
+	
+	// this function will check the amount of players selected by the player and set the amount of buttons there will have to be at the selection playercolor.
+	public function checkAmountOfPlayers(){
+		if (chosenAmountOfPlayers == 4){
+			amountOfButtons = 4;
+		}else if(chosenAmountOfPlayers == 6){
+			amountOfButtons = 6;
 		}
 	}
 	
-	public function removePlayerChoiseButtons(){
-		for(i in 0...6){
-			removeChild(playerButtonArray[i]);
+	// This function will run everytime a choice has been made.
+	// It will set the choice(amountofplayer/playercolor/set) id to what the player has picked.
+	// Then it will remove the buttons from the previous choice.
+	// At last it will rune the button initializer again for the next pick.
+	public function nextState(me : MouseEvent):Void{
+		if (state == 1){
+			chosenAmountOfPlayers = me.target.id;
+			this.removeChildren();
+			initializeLoginButtonChoices();
+		}else if (state == 2){
+			playerId = me.target.id;
+			this.removeChildren();
+			initializeLoginButtonChoices();
+		}else if (state == 3) {
+			this.removeChildren();	
+			setId = me.target.id;
 		}
+		
 	}
 	
-	public function playerChoiseClicked(me : MouseEvent){
-		playerId = me.target.id;
-		removePlayerChoiseButtons();
-		initializeSetChoise();
-		trace(playerId);
-	}
-	
-	public function setChoiseButtonClicked(me:MouseEvent):Void{
-		setId = me.target.id;
-		trace(setId);
+	// get functions for main to get the results of what the player clicked on
+	public function getChosenAmountOfPlayers(){
+		return chosenAmountOfPlayers;
 	}
 	
 	public function getPlayerId():Int{

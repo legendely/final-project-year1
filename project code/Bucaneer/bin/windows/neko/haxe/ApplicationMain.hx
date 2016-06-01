@@ -91,7 +91,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "540",
+			build: "596",
 			company: "Marcel Stoepker",
 			file: "Bucaneer",
 			fps: 60,
