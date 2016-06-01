@@ -10,6 +10,10 @@ import openfl.events.MouseEvent;
  * @author Marcel Stoepker
  */
 class UserInterface extends Sprite{
+	// chosen set and player
+	private var set : Int;
+	private var player : Int;
+	
 	// timer
 	private var timer : haxe.Timer;
 	
@@ -32,7 +36,7 @@ class UserInterface extends Sprite{
 	//views
 	private var tutorialView : Tutorial = new Tutorial("turorial");
 	private var settingsView : Settings = new Settings("settings");
-	private var gameOverviewView : GameOverview = new GameOverview("gameoverview");
+	private var gameOverviewView : GameOverview ;
 	private var chatRoomView : ChatRoom = new ChatRoom("chatroom");
 	
 	//arrays
@@ -44,8 +48,11 @@ class UserInterface extends Sprite{
 	private var bitmapIsland : Bitmap;
 	private var bitmapDataIsland: BitmapData;
 	
-	public function new(){
+	public function new(choosenSet:Int,choosenPlayer:Int){
 		super();
+		set = choosenSet;
+		player = choosenPlayer;
+		gameOverviewView = new GameOverview("gameoverview",set,player);
 		initializeIsland();
 		initializeArrays();
 		initializeButtons();
@@ -125,7 +132,7 @@ class UserInterface extends Sprite{
 	// After the check it will change the view to the clicked option and add the back button.
 	public function buttonClicked(me:MouseEvent) : Void {
 		removeButtons();
-		
+		removeIsland();
 		for (i in 0...buttonArray.length){
 			if(me.target == buttonArray[i]){
 			addChild(viewArray[i]);
@@ -140,7 +147,7 @@ class UserInterface extends Sprite{
 	//It will delete the view from the UI.
 	//Then it will add the UI buttons again.
 	public function goBack(me:MouseEvent) : Void{
-		
+		addChilderIsland();
 		for (i in 0...buttonArray.length){
 			if (me.target == viewArray[i].backButton){
 			viewArray[i].removeView();
@@ -167,15 +174,26 @@ class UserInterface extends Sprite{
 		buttonRight.x = 500;
 		buttonRight.y = 500;
 		
-		addChild(bitmapIsland);
-		addChild(buttonLeft);
-		addChild(buttonRight);
+		addChilderIsland();
+
 		buttonLeft.addEventListener("click", moveIsland);
 		buttonRight.addEventListener("click", moveIsland);
 	}
 	
+	public function removeIsland():Void{
+		removeChild(bitmapIsland);
+		removeChild(buttonLeft);
+		removeChild(buttonRight);
+	}
+	
+	public function addChilderIsland(){
+		addChild(bitmapIsland);
+		addChild(buttonLeft);
+		addChild(buttonRight);
+	}
+	
 	// will move the picture of the island
-	public function moveIsland(me:MouseEvent) {
+	public function moveIsland(me:MouseEvent):Void{
 		timer = new haxe.Timer(1);
 		var maxMovement : Int = 50;
 		var temp : Int = 0;

@@ -71,6 +71,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
 		#end
 		
 		#if flash
@@ -113,6 +114,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("img/buttonpictures/tutorialButton.jpg", AssetType.IMAGE);
 		path.set ("img/islandMap.jpg", "img/islandMap.jpg");
 		type.set ("img/islandMap.jpg", AssetType.IMAGE);
+		path.set ("database/BucaneersTestDB.db", "database/BucaneersTestDB.db");
+		type.set ("database/BucaneersTestDB.db", AssetType.BINARY);
 		
 		
 		#elseif html5
@@ -175,6 +178,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		id = "img/islandMap.jpg";
 		path.set (id, id);
 		type.set (id, AssetType.IMAGE);
+		id = "database/BucaneersTestDB.db";
+		path.set (id, id);
+		type.set (id, AssetType.BINARY);
 		
 		
 		var assetsPrefix = null;
@@ -192,6 +198,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#if (windows || mac || linux)
 		
 		var useManifest = false;
+		useManifest = true;
 		useManifest = true;
 		useManifest = true;
 		useManifest = true;
@@ -876,7 +883,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+
 #elseif html5
+
 
 
 

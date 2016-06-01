@@ -65,10 +65,12 @@ class LoginScreen extends Sprite{
 		playerId = me.target.id;
 		removePlayerChoiseButtons();
 		initializeSetChoise();
+		trace(playerId);
 	}
 	
 	public function setChoiseButtonClicked(me:MouseEvent):Void{
 		setId = me.target.id;
+		trace(setId);
 	}
 	
 	public function getPlayerId():Int{

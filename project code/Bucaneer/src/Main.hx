@@ -17,7 +17,7 @@ class Main extends Sprite{
 
 	public var chosenSet : Int = null;
 	public var chosenPlayer : Int = null;
-	public var userInterface : UserInterface = new UserInterface();
+	public var userInterface : UserInterface;
 	public var loginScreen : LoginScreen = new LoginScreen();
 	
 	public function new(){
@@ -33,6 +33,7 @@ class Main extends Sprite{
 	
 	public function setChoiseButtonClicked(me:MouseEvent):Void{
 		chosenSet = loginScreen.getSetId();
+		userInterface = new UserInterface(chosenSet, chosenPlayer);
 		removeChild(loginScreen);
 		addChild(userInterface);
 	}

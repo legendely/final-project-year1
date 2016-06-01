@@ -91,7 +91,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "425",
+			build: "534",
 			company: "Marcel Stoepker",
 			file: "Bucaneer",
 			fps: 60,
@@ -103,19 +103,19 @@ class ApplicationMain {
 				
 				{
 					antialiasing: 0,
-					background: 0,
+					background: 16777215,
 					borderless: false,
 					depthBuffer: false,
 					display: 0,
 					fullscreen: false,
 					hardware: true,
-					height: 480,
+					height: 900,
 					parameters: "{}",
 					resizable: true,
 					stencilBuffer: true,
 					title: "Bucaneer",
 					vsync: false,
-					width: 800,
+					width: 1600,
 					x: null,
 					y: null
 				},
@@ -133,7 +133,7 @@ class ApplicationMain {
 		
 		#if (js && html5)
 		#if (munit || utest)
-		openfl.Lib.embed (null, 800, 480, "null");
+		openfl.Lib.embed (null, 1600, 900, "null");
 		#end
 		#else
 		create ();

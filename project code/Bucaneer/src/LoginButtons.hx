@@ -12,8 +12,11 @@ import openfl.events.MouseEvent;
  */
 class LoginButtons extends Sprite{
 
-	public function new(bitmapDataInput : String, id : Int){
+	public var id : Int;
+	
+	public function new(bitmapDataInput : String, idPicked : Int){
 		super();
+		id = idPicked;
 		this.addEventListener("click", playerPicked);
 		
 		var tempBitmapData : BitmapData = Assets.getBitmapData(bitmapDataInput);
