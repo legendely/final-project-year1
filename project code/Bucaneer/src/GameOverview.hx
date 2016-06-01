@@ -54,4 +54,11 @@ class GameOverview extends View{
 		removeChild(backButton);
 		removeChild(titleTextField);
 	}
+	
+	public override function addView() {
+		addChild(roleTextfield);
+		addChild(backButton);
+		addChild(titleTextField);
+		initializeTitleText();
+	}
 }

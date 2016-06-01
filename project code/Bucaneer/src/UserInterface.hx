@@ -127,12 +127,12 @@ class UserInterface extends Sprite{
 	}
 	
 	//This function will run when one of the buttons is clicked.
-	//First it will delete the UI buttons by doing removeButtons().
+	//First it will delete the UI buttons by doing removeButtons() and the island by removeIsland().
 	// "me.target" is the button which is clicked, therefore this function will check which button is clicked.
 	// After the check it will change the view to the clicked option and add the back button.
 	public function buttonClicked(me:MouseEvent) : Void {
 		removeButtons();
-		removeIsland();
+		removeChilderenIsland();
 		for (i in 0...buttonArray.length){
 			if(me.target == buttonArray[i]){
 			addChild(viewArray[i]);
@@ -147,7 +147,7 @@ class UserInterface extends Sprite{
 	//It will delete the view from the UI.
 	//Then it will add the UI buttons again.
 	public function goBack(me:MouseEvent) : Void{
-		addChilderIsland();
+		addChilderenIsland();
 		for (i in 0...buttonArray.length){
 			if (me.target == viewArray[i].backButton){
 			viewArray[i].removeView();
@@ -158,7 +158,7 @@ class UserInterface extends Sprite{
 	
 	//will set the data for the island as background
 	public function initializeIsland(){
-		//bitmap stuff
+		//bitmap stuff, will add the pictures to the buttons and set the island picture.
 		bitmapDataIsland = Assets.getBitmapData("img/islandMap.jpg");
 		bitmapIsland = new Bitmap(bitmapDataIsland);
 		buttonLeftBitmapData = Assets.getBitmapData("img/buttonpictures/moveButtonLeft.jpg");
@@ -166,43 +166,48 @@ class UserInterface extends Sprite{
 		buttonRightBitmapData = Assets.getBitmapData("img/buttonpictures/moveButtonRight.jpg");
 		buttonRightBitmap = new Bitmap(buttonRightBitmapData);
 		
+		// will add the movement buttons to the UI
 		buttonLeft.addChild(buttonLeftBitmap);
 		buttonRight.addChild(buttonRightBitmap);
 		
-		buttonLeft.x = 10;
-		buttonLeft.y = 500;
-		buttonRight.x = 500;
-		buttonRight.y = 500;
+		settingsIslandMovementButtons();
 		
-		addChilderIsland();
+		addChilderenIsland();
 
+		// adds actionlistners to the buttons to move the island.
 		buttonLeft.addEventListener("click", moveIsland);
 		buttonRight.addEventListener("click", moveIsland);
 	}
 	
-	public function removeIsland():Void{
+	// removers all the assets involving the island.
+	public function removeChilderenIsland():Void{
 		removeChild(bitmapIsland);
 		removeChild(buttonLeft);
 		removeChild(buttonRight);
 	}
 	
-	public function addChilderIsland(){
+	// adds all the assets involving the island.
+	public function addChilderenIsland():Void{
 		addChild(bitmapIsland);
 		addChild(buttonLeft);
 		addChild(buttonRight);
 	}
 	
-	// will move the picture of the island
+	// will move the picture of the island (actionlistner added to buttonright and buttonleft).
 	public function moveIsland(me:MouseEvent):Void{
 		timer = new haxe.Timer(1);
+		
+		// maxMovement indicates how var the island will move.
 		var maxMovement : Int = 50;
+		// movementSpeed indicated how fast the island will be moveing.
+		var movementSpeed : Int = 20;
 		var temp : Int = 0;
 		
 		if (me.target == buttonLeft){
 			timer.run = function():Void {
 				temp++;
 				trace(temp);
-				bitmapIsland.x = bitmapIsland.x + 10;
+				bitmapIsland.x = bitmapIsland.x + movementSpeed;
 				if (temp == maxMovement){
 					timer.stop();
 				}
@@ -211,12 +216,19 @@ class UserInterface extends Sprite{
 			timer.run = function():Void {
 				temp++;
 				trace(temp);
-				bitmapIsland.x = bitmapIsland.x - 10;
+				bitmapIsland.x = bitmapIsland.x - movementSpeed;
 				if (temp == maxMovement){
 					timer.stop();
 				}
 			}	
 		}
+	}
+	
+	public function settingsIslandMovementButtons(){
+		buttonLeft.x = 10;
+		buttonLeft.y = 500;
+		buttonRight.x = 500;
+		buttonRight.y = 500;
 	}
 
 }
