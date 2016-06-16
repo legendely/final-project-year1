@@ -5,11 +5,28 @@ import openfl.display.Bitmap;
 import openfl.display.BitmapData;
 import openfl.Assets;
 import openfl.events.MouseEvent;
+
 /**
  * ...
  * @author Marcel Stoepker
  */
-class UserInterface extends Sprite{
+class UserInterface extends Sprite {
+
+	
+	// locations
+		//views
+	private var location1View : View = new View("location1");
+	private var location2View : View = new View("location2");
+	private var location3View : View = new View("location3");
+	
+	private var locationArray : Array<Sprite>;
+	private var locationY : Array<Int>;
+	private var locationX : Array<Int>;
+	
+	private var location1 : Sprite = new Sprite();
+	private var location2 : Sprite = new Sprite();
+	private var location3 : Sprite = new Sprite();
+	
 	// chosen set and player
 	private var set : Int;
 	private var player : Int;
@@ -17,32 +34,21 @@ class UserInterface extends Sprite{
 	// timer
 	private var timer : haxe.Timer;
 	
-	//view buttons
-	private var tutorialButton : Sprite = new Sprite();
-	private var settingsButton : Sprite = new Sprite();
-	private var gameOverviewButton : Sprite = new Sprite();
-	private var chatRoomButton : Sprite = new Sprite();
+	//settingsInterface
+	private var settingsInterface : SettingsInterface;
 	
-	//move buttons
+	//buttons
 	private var buttonLeft : Sprite = new Sprite();
 	private var buttonRight : Sprite = new Sprite();
+	private var settingsButton : Sprite = new Sprite();
 	
-	//move button Data
+	//BitmapData and bitmaps
+	private var settingButtonBitmapData : BitmapData;
+	private var settingButtonBitmap : Bitmap;
 	private var buttonLeftBitmapData : BitmapData;
 	private var buttonLeftBitmap : Bitmap;
 	private var buttonRightBitmapData : BitmapData;
 	private var buttonRightBitmap : Bitmap;
-	
-	//views
-	private var tutorialView : Tutorial = new Tutorial("turorial");
-	private var settingsView : Settings = new Settings("settings");
-	private var gameOverviewView : GameOverview ;
-	private var chatRoomView : ChatRoom = new ChatRoom("chatroom");
-	
-	//arrays
-	private var buttonArray : Array<Sprite>;
-	private var viewArray : Array<View>;
-	private var bitmapDataInput : Array<String>;
 	
 	//map data
 	private var bitmapIsland : Bitmap;
@@ -50,110 +56,17 @@ class UserInterface extends Sprite{
 	
 	public function new(choosenSet:Int,choosenPlayer:Int){
 		super();
-		set = choosenSet;
-		player = choosenPlayer;
-		gameOverviewView = new GameOverview("gameoverview",set,player);
+		settingsInterface = new SettingsInterface(choosenSet, choosenPlayer);
+		settingsInterface.backButton.addEventListener("click", backToIsland);
 		initializeIsland();
-		initializeArrays();
-		initializeButtons();
-	}
-	
-	// This function will insert the Data into the Arrays 
-	public function initializeArrays() : Void{
-		buttonArray = [tutorialButton, settingsButton, gameOverviewButton, chatRoomButton];
-		viewArray = [tutorialView, settingsView, gameOverviewView, chatRoomView];
-		bitmapDataInput = 
-		["img/buttonpictures/tutorialButton.jpg",
-		"img/buttonpictures/settingsButton.jpg",
-		"img/buttonpictures/gameOverviewButton.jpg",
-		"img/buttonpictures/chatRoomButton.jpg"];
-	}
-	
-	//This function will put all the bitmapdata into bitmaps and adds them to the button sprites.
-	//After that the function will add the buttons to the Userinterface.
-	//Finaly setting the defaultvalues with function ==> setDefaultSetingsButtons().
-	private function initializeButtons() : Void{
-		//Bitmap and BitmapData part
-		for (i in 0...buttonArray.length){
-			var tempBitmapData : BitmapData = Assets.getBitmapData(bitmapDataInput[i]);
-			var tempBitmap : Bitmap = new Bitmap(tempBitmapData);
-			buttonArray[i].addChild(tempBitmap);
-		}
-
-		//addChildren part
-		addButtons();
+		initialzeBackButtonLocationViewEventlistners();
 		
-		//default location settings
-		setDefaultSetingsButtons();
-		
-		//create actionlistners
-		createActionListners();
 	}
 	
-	//This function will set the locations of the buttons.
-	private function setDefaultSetingsButtons() : Void{
-		tutorialButton.x = 0;
-		tutorialButton.y = 0;
-		
-		settingsButton.x = 0;
-		settingsButton.y = 150;
-		
-		gameOverviewButton.x = 0;
-		gameOverviewButton.y = 300;
-		
-		chatRoomButton.x = 0;
-		chatRoomButton.y = 450;
-	}
-
-	//creates the actionlisteners for the buttons
-	private function createActionListners() : Void {
-		for (i in 0...buttonArray.length){
-			buttonArray[i].addEventListener("click", buttonClicked);
-		}
-	}
-	
-	//This function will add all the buttons to the UI.
-	public function addButtons() : Void {
-		for (i in 0...buttonArray.length){
-			addChild(buttonArray[i]);
-		}	
-	}
-	
-	//This function will remove all the buttons from the UI.
-	private function removeButtons() : Void{
-		for (i in 0...buttonArray.length){
-			removeChild(buttonArray[i]);
-		}	
-	}
-	
-	//This function will run when one of the buttons is clicked.
-	//First it will delete the UI buttons by doing removeButtons() and the island by removeIsland().
-	// "me.target" is the button which is clicked, therefore this function will check which button is clicked.
-	// After the check it will change the view to the clicked option and add the back button.
-	public function buttonClicked(me:MouseEvent) : Void {
-		removeButtons();
-		removeChilderenIsland();
-		for (i in 0...buttonArray.length){
-			if(me.target == buttonArray[i]){
-			addChild(viewArray[i]);
-			viewArray[i].backButton.addEventListener("click", goBack);
-			viewArray[i].addView();
-			}	
-		}	
-	}
-	
-	//This function will run when a back button is clicked.
-	// "me.target" is the button which is clicked, therefore this function will check in which view button is clicked.
-	//It will delete the view from the UI.
-	//Then it will add the UI buttons again.
-	public function goBack(me:MouseEvent) : Void{
-		addChilderenIsland();
-		for (i in 0...buttonArray.length){
-			if (me.target == viewArray[i].backButton){
-			viewArray[i].removeView();
-			addButtons();
-			}	
-		}
+	public function initializeSettingButton(){
+		settingButtonBitmapData = Assets.getBitmapData("img/buttonpictures/SettingsButtonResized.png");
+		settingButtonBitmap = new Bitmap(settingButtonBitmapData);
+		settingsButton.addChild(settingButtonBitmap);
 	}
 	
 	//will set the data for the island as background
@@ -161,10 +74,11 @@ class UserInterface extends Sprite{
 		//bitmap stuff, will add the pictures to the buttons and set the island picture.
 		bitmapDataIsland = Assets.getBitmapData("img/islandMap.jpg");
 		bitmapIsland = new Bitmap(bitmapDataIsland);
-		buttonLeftBitmapData = Assets.getBitmapData("img/buttonpictures/moveButtonLeft.jpg");
+		buttonLeftBitmapData = Assets.getBitmapData("img/buttonpictures/moveButtonLeft.png");
 		buttonLeftBitmap = new Bitmap(buttonLeftBitmapData);
-		buttonRightBitmapData = Assets.getBitmapData("img/buttonpictures/moveButtonRight.jpg");
+		buttonRightBitmapData = Assets.getBitmapData("img/buttonpictures/moveButtonRight.png");
 		buttonRightBitmap = new Bitmap(buttonRightBitmapData);
+		initializeSettingButton();
 		
 		// will add the movement buttons to the UI
 		buttonLeft.addChild(buttonLeftBitmap);
@@ -177,6 +91,10 @@ class UserInterface extends Sprite{
 		// adds actionlistners to the buttons to move the island.
 		buttonLeft.addEventListener("click", moveIsland);
 		buttonRight.addEventListener("click", moveIsland);
+		settingsButton.addEventListener("click", settingsButtonClicked);
+		
+		//init locations add them to the frame.
+		initializeLocations();
 	}
 	
 	// removers all the assets involving the island.
@@ -184,6 +102,7 @@ class UserInterface extends Sprite{
 		removeChild(bitmapIsland);
 		removeChild(buttonLeft);
 		removeChild(buttonRight);
+		removeChild(settingsButton);
 	}
 	
 	// adds all the assets involving the island.
@@ -191,6 +110,10 @@ class UserInterface extends Sprite{
 		addChild(bitmapIsland);
 		addChild(buttonLeft);
 		addChild(buttonRight);
+		addChild(settingsButton);
+		addChild(location1);
+		addChild(location2);
+		addChild(location3);
 	}
 	
 	// will move the picture of the island (actionlistner added to buttonright and buttonleft).
@@ -226,9 +149,58 @@ class UserInterface extends Sprite{
 	
 	public function settingsIslandMovementButtons(){
 		buttonLeft.x = 10;
-		buttonLeft.y = 500;
-		buttonRight.x = 500;
-		buttonRight.y = 500;
+		buttonLeft.y = 300;
+		buttonRight.x = 1400;
+		buttonRight.y = 300;
+		settingsButton.x = 0;
+		settingsButton.y = 0;
 	}
 
+	public function settingsButtonClicked(me:MouseEvent):Void{
+		removeChilderenIsland();
+		addChild(settingsInterface);
+	}
+	
+	public function backToIsland(me:MouseEvent):Void{
+		removeChildren();
+		addChilderenIsland();
+	}
+	
+	public function initializeLocations(){
+		// first X second y
+		locationX = [400, 400, 400];
+		locationY = [200, 300, 400];
+		locationArray = [location1, location2, location3];
+
+		insertLocationData();
+	}
+	
+	public function insertLocationData(){
+		for (i in 0...3){
+			var temp : BitmapData = Assets.getBitmapData("img/locations/locationButton"+(i+1)+".png");
+			var locationBitTemp : Bitmap = new Bitmap(temp);
+			locationArray[i].addChild(locationBitTemp);
+			addChild(locationArray[i]);
+			locationArray[i].x = locationX[i];
+			locationArray[i].y = locationY[i];
+			locationArray[i].addEventListener("click", locationClicked);
+		}
+	}
+	
+	public function initialzeBackButtonLocationViewEventlistners(){
+		location1View.backButton.addEventListener("click", backToIsland);
+		location2View.backButton.addEventListener("click", backToIsland);
+		location3View.backButton.addEventListener("click", backToIsland);
+	}
+	
+	public function locationClicked(me:MouseEvent):Void{
+		removeChildren();
+		if (me.target == location1){
+			addChild(location1View);
+		}else if(me.target == location2){
+			addChild(location2View);
+		}else if(me.target == location3){
+			addChild(location3View);
+		}
+	}	
 }

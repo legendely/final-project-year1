@@ -27,16 +27,19 @@ class Main extends Sprite {
 		loginScreen.addEventListener("click", amountOfPlayersClicked);
 	}
 	
+	// Will run when the user has chosen the amount of players.
 	public function amountOfPlayersClicked(me:MouseEvent):Void{
 		chosenAmountOfPlayers = loginScreen.getChosenAmountOfPlayers();
 		loginScreen.addEventListener("click", playerChoiseButtonClicked);
 	}
 	
+	// Will run when the user has chosen the playercolor.
 	public function playerChoiseButtonClicked(me:MouseEvent):Void{
 		chosenPlayer = loginScreen.getPlayerId();
 		loginScreen.addEventListener("click", setChoiseButtonClicked);
 	}
 	
+	// Will run when the user has chosen the dataset.
 	public function setChoiseButtonClicked(me:MouseEvent):Void{
 		chosenSet = loginScreen.getSetId();
 		userInterface = new UserInterface(chosenSet, chosenPlayer);
